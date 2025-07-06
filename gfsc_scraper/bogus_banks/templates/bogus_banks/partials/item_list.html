@@ -1,0 +1,30 @@
+{% load tz %}
+<h3>Current Items</h3>
+<div class="table-responsive">
+  <table id="current-table" class="table table-striped table-bordered table-hover table-md">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Domains</th>
+        <th>Notes</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>
+          <ul>
+            {% for d in item.domains %}<li>{{ d }}</li>{% endfor %}
+          </ul>
+        </td>
+        <td>{{ item.notes|linebreaks }}</td>
+        <td>{{ item.created_at|localtime|date:"Y-m-d H:i:s" }}</td>
+        <td>{{ item.updated_at|localtime|date:"Y-m-d H:i:s" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

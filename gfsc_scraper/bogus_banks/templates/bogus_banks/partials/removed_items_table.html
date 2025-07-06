@@ -1,0 +1,27 @@
+<h3>Removed Items</h3>
+<div class="table-responsive">
+  <table id="removed-table" class="table table-striped table-bordered table-hover table-md">
+    {% if removed_items %}
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Domains</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in removed_items %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.domains }}</td>
+        <td>{{ item.notes|linebreaks }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% else %}
+    <tr>
+      <td colspan="3">No removed items</td>
+    </tr>
+    {% endif %}
+  </table>
+</div>
