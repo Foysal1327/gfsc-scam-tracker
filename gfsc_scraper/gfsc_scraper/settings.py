@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'web_scraper_db',           
         'USER': 'root',      
-        'PASSWORD': '1234',  
+        'PASSWORD': '####',  #your password here
         'HOST': 'localhost',         
         'PORT': '3306',              
         'OPTIONS': {
@@ -144,6 +144,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'foysalmailtest@gmail.com'
-EMAIL_HOST_PASSWORD = 'mrsyqblhfbkurufd'
+EMAIL_HOST_USER = 'foysalmailtest@gmail.com' #your smtp email here
+EMAIL_HOST_PASSWORD = '####' #your smtp password here
 NOTIFY_EMAILS = ['foysal2852@gmail.com', 'foysal0227@gmail.com']
