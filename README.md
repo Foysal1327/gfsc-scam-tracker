@@ -129,6 +129,9 @@ Add a line (every hour):
 
 ---
 
+## email sample
+<img width="517" alt="image" src="https://github.com/user-attachments/assets/e5dbcda4-fdc9-49fd-9ad9-0d5262a5f80d" />
+
 ## License
 
 MIT 
