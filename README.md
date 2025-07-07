@@ -79,6 +79,140 @@ python manage.py collectstatic
 ```
 
 - Set up a process manager (e.g., [supervisor](http://supervisord.org/)) to keep your app running.
+---
+
+## Deployment on a Linux Server
+
+### 1. System Preparation
+
+- Update your system:
+  ```bash
+  sudo apt update && sudo apt upgrade -y
+  ```
+- Install Python, pip, and venv:
+  ```bash
+  sudo apt install python3 python3-pip python3-venv -y
+  ```
+- Install MariaDB (or MySQL) and required libraries:
+  ```bash
+  sudo apt install mariadb-server libmariadb-dev -y
+  # Or for MySQL:
+  # sudo apt install mysql-server libmysqlclient-dev -y
+  ```
+- (Optional) Secure your MariaDB installation:
+  ```bash
+  sudo mysql_secure_installation
+  ```
+
+### 2. Database Setup
+
+- Log in to MariaDB and create the database and user:
+  ```bash
+  sudo mysql -u root -p
+  CREATE DATABASE web_scraper_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+  CREATE USER 'youruser'@'localhost' IDENTIFIED BY 'yourpassword';
+  GRANT ALL PRIVILEGES ON web_scraper_db.* TO 'youruser'@'localhost';
+  FLUSH PRIVILEGES;
+  EXIT;
+  ```
+- Import the schema:
+  ```bash
+  mysql -u youruser -p web_scraper_db < schema.sql
+  ```
+
+### 3. Project Setup
+
+- Clone your project and set up the environment:
+  ```bash
+  git clone https://github.com/Foysal1327/gfsc-scam-tracker.git
+  cd gfsc-scam-tracker
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -r requirements.txt
+  ```
+- Update `gfsc_scraper/settings.py` with your database credentials.
+
+### 4. Django Setup
+
+- Run migrations and create a superuser:
+  ```bash
+  cd gfsc_scraper
+  python manage.py migrate
+  python manage.py createsuperuser
+  python manage.py collectstatic
+  ```
+
+### 5. Gunicorn Setup (as a systemd service)
+
+- Install Gunicorn:
+  ```bash
+  pip install gunicorn
+  ```
+- Create a Gunicorn systemd service file `/etc/systemd/system/gfsc-scam-tracker.service`:
+  ```ini
+  [Unit]
+  Description=Gunicorn instance to serve GFSC Scam Tracker
+  After=network.target
+
+  [Service]
+  User=yourusername
+  Group=www-data
+  WorkingDirectory=/path/to/gfsc-scam-tracker/gfsc_scraper
+  Environment="PATH=/path/to/gfsc-scam-tracker/venv/bin"
+  ExecStart=/path/to/gfsc-scam-tracker/venv/bin/gunicorn --workers 3 --bind unix:/path/to/gfsc-scam-tracker/gfsc_scraper.sock gfsc_scraper.wsgi:application
+
+  [Install]
+  WantedBy=multi-user.target
+  ```
+- Reload systemd and start Gunicorn:
+  ```bash
+  sudo systemctl daemon-reload
+  sudo systemctl start gfsc-scam-tracker
+  sudo systemctl enable gfsc-scam-tracker
+  ```
+
+### 6. Nginx Setup
+
+- Install Nginx:
+  ```bash
+  sudo apt install nginx -y
+  ```
+- Create an Nginx config `/etc/nginx/sites-available/gfsc-scam-tracker`:
+  ```nginx
+  server {
+      listen 80;
+      server_name your_domain_or_ip;
+
+      location = /favicon.ico { access_log off; log_not_found off; }
+      location /static/ {
+          root /path/to/gfsc-scam-tracker/gfsc_scraper;
+      }
+      location /media/ {
+          root /path/to/gfsc-scam-tracker/gfsc_scraper;
+      }
+      location / {
+          include proxy_params;
+          proxy_pass http://unix:/path/to/gfsc-scam-tracker/gfsc_scraper.sock;
+      }
+  }
+  ```
+- Enable the config and restart Nginx:
+  ```bash
+  sudo ln -s /etc/nginx/sites-available/gfsc-scam-tracker /etc/nginx/sites-enabled
+  sudo nginx -t
+  sudo systemctl restart nginx
+  ```
+
+### 7. Security & Environment
+
+- Set `DEBUG = False` and configure `ALLOWED_HOSTS` in `settings.py`.
+- Use environment variables or a `.env` file for secrets (see [django-environ](https://django-environ.readthedocs.io/en/latest/)).
+- Set up HTTPS with [Let's Encrypt](https://certbot.eff.org/) (recommended).
+
+### 8. Process Management
+
+- Gunicorn is managed by systemd (see above).
+- For scheduled scraping, use `cron` as described earlier.
 
 ---
 
@@ -136,4 +270,4 @@ Add a line (every hour):
 
 ## License
 
-MIT 
+MIT
