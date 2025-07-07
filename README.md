@@ -44,12 +44,11 @@ pip install -r requirements.txt
 - Create a MySQL database named `web_scraper_db`.
 - Import the schema:
 - make sure your mariaDb version updated to 10.5 or more
+- Update `gfsc_scraper/settings.py` with your MySQL credentials.
 
 ```bash
 mysql -u root -p web_scraper_db < schema.sql
 ```
-
-- Update `gfsc_scraper/settings.py` with your MySQL credentials.
 
 ### 5. Run migrations and create a superuser
 
@@ -266,6 +265,8 @@ Add a line (every hour):
 ---
 
 ## email sample
+- Update `gfsc_scraper/settings.py` with your SMTP credentials.
+
 <img width="517" alt="image" src="https://github.com/user-attachments/assets/e5dbcda4-fdc9-49fd-9ad9-0d5262a5f80d" />
 
 ## License
