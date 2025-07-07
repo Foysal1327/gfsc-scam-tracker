@@ -20,7 +20,7 @@ A Django web application for scraping and tracking bogus banks from the GFSC web
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/gfsc-scam-tracker.git
+git clone https://github.com/Foysal1327/gfsc-scam-tracker.git
 cd gfsc-scam-tracker
 ```
 
@@ -28,7 +28,7 @@ cd gfsc-scam-tracker
 
 ```bash
 python -m venv myvenv
-source myvenv/Scripts/activate  # On Windows
+source myvenv\Scripts\activate  # On Windows
 # or
 source myvenv/bin/activate      # On Linux/macOS
 ```
@@ -43,6 +43,7 @@ pip install -r requirements.txt
 
 - Create a MySQL database named `web_scraper_db`.
 - Import the schema:
+- make sure your mariaDb version updated to 10.5 or more
 
 ```bash
 mysql -u root -p web_scraper_db < schema.sql
@@ -53,6 +54,7 @@ mysql -u root -p web_scraper_db < schema.sql
 ### 5. Run migrations and create a superuser
 
 ```bash
+cd gfsc_scraper
 python manage.py migrate
 python manage.py createsuperuser
 ```
@@ -128,6 +130,9 @@ Add a line (every hour):
 - Set your desired schedule.
 
 ---
+
+## email sample
+<img width="517" alt="image" src="https://github.com/user-attachments/assets/e5dbcda4-fdc9-49fd-9ad9-0d5262a5f80d" />
 
 ## License
 
