@@ -156,4 +156,4 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'foysalmailtest@gmail.com' #your smtp email here
 EMAIL_HOST_PASSWORD = '####' #your smtp password here
-NOTIFY_EMAILS = ['foysal2852@gmail.com', 'foysal0227@gmail.com']
+NOTIFY_EMAILS = ['foysal2852@gmail.com', 'foysal0227@gmail.com', 'smrashel@sebpo.com']

@@ -16,7 +16,7 @@ def detect_changes(fetched_items):
         if not existing:
             new.append(entry)
         else:
-            # Update existing if content differs
+            # Updated existing if content differs
             changed = False
             if existing.domains != entry['domains'] or existing.notes != entry['notes']:
                 existing.domains = entry['domains']

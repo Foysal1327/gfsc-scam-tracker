@@ -7,12 +7,6 @@ from django.core.paginator import Paginator
 
 @login_required
 def item_list(request):
-    # items = ScrapedItem.objects.all().order_by('-updated_at')
-    # return render(request, 'bogus_banks/item_list.html', {
-    #     'items': items,
-    #     'new_items': [],
-    #     'removed_items': []
-    # })
     page_number = request.GET.get('page', 1)
     per_page = request.GET.get('per_page', 10)
     try:
@@ -76,7 +70,7 @@ def refresh_items(request):
             'removed_items': removed_items,
         })
 
-    # Otherwise, render the full page (fallback)
+    # Otherwise, render the full page
     return render(request, 'bogus_banks/item_list.html', {
         'page_obj': page_obj,
         'items': page_obj.object_list,
