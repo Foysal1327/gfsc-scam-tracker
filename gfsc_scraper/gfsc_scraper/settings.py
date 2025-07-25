@@ -80,17 +80,27 @@ WSGI_APPLICATION = 'gfsc_scraper.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'web_scraper_db',           
+#         'USER': 'root',      
+#         'PASSWORD': '####',  #your password here
+#         'HOST': 'localhost',         
+#         'PORT': '3306',              
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'web_scraper_db',           
-        'USER': 'root',      
-        'PASSWORD': '####',  #your password here
-        'HOST': 'localhost',         
-        'PORT': '3306',              
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'NAME': 'test2_db',
+        'USER': 'test2',
+        'PASSWORD': 'T!BE45y5,?X0',
+        'HOST': 'localhost',  # or '127.0.0.1'
+        'PORT': '3306',
     }
 }
 
